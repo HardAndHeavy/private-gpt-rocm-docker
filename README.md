@@ -1,30 +1,31 @@
-# PrivateGPT на GPU AMD Radeon в Docker
+# PrivateGPT on GPU AMD Radeon in Docker
 
 <h4 align="center">
     <p>
-        <b>Русский</b> |
-        <a href="https://github.com/HardAndHeavy/private-gpt-rocm-docker/blob/main/README_en.md">English</a>
+        <a href="https://github.com/HardAndHeavy/private-gpt-rocm-docker">English</a> |
+        <b>Русский</b>
     </p>
 </h4>
 
-[PrivateGPT](https://github.com/zylon-ai/private-gpt) в Docker [контейнере с поддержкой GPU Radeon](https://hub.docker.com/repository/docker/hardandheavy/private-gpt-rocm/general). Проверено на AMD Radeon RX 7900 XTX.
+[PrivateGPT](https://github.com/zylon-ai/private-gpt) project in a [Docker container with GPU Radeon support](https://hub.docker.com/repository/docker/hardandheavy/private-gpt-rocm/general). Tested on AMD Radeon RX 7900 XTX.
 
-### Необходимое окружение
+### Requirements
 - Ubuntu
 - make
 - Docker
 - git
-- ROCm ([установка](https://github.com/HardAndHeavy/transformers-rocm-docker?tab=readme-ov-file#install-rocm))
+- ROCm (see the installation in [transformers-rocm-docker](https://github.com/HardAndHeavy/transformers-rocm-docker?tab=readme-ov-file#install-rocm))
 
-### Запуск
+### Launch
 - `git clone https://github.com/HardAndHeavy/private-gpt-rocm-docker`
 - `cd private-gpt-rocm-docker`
 - `make gen`
 - `make run`
 
-При первом запуске будет происходить длительный процесс скачивания модели. Когда этот процесс завершится, PrivateGPT станет доступен по адресу http://localhost.
+At the first launch, there will be a long process of downloading the model. When this process is completed, PrivateGTP will be available at http://localhost
+After downloading, privat-gt will be available at http://localhost
 
-### Примеры настроек
+### Examples of settings
 #### llm
 `bge-small`:
 ```
