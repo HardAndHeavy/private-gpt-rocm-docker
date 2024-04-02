@@ -1,0 +1,46 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y \
+    libopenblas-dev \
+    ninja-build \
+    build-essential \
+    pkg-config \
+    curl \
+    wget \
+    git \
+    make
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+# Install Conda
+ENV PATH /opt/miniconda/bin:${PATH}
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh --no-check-certificate && /bin/bash ~/miniconda.sh -b -p /opt/miniconda && \
+    conda init bash && \
+    conda config --set auto_activate_base false && \
+    conda update --all && \
+    rm ~/miniconda.sh && conda clean -ya
+ENV PYTHON_VERSION=3.11
+RUN conda install python=${PYTHON_VERSION} pip
+
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
+EXPOSE 8080
+
+RUN mkdir local_data
+RUN mkdir models
+
+RUN pip install poetry
+# https://python-poetry.org/docs/configuration/#virtualenvsin-project
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+
+ENV PRIVATE_GPT_VERSION=0.4.0
+RUN git clone https://github.com/zylon-ai/private-gpt /app && \
+    cd /app && \
+    git checkout v${PRIVATE_GPT_VERSION}
+WORKDIR /app
+RUN poetry install --extras "ui llms-llama-cpp embeddings-huggingface vector-stores-qdrant"
+
+CMD poetry run python scripts/setup && \
+    make run

@@ -1,0 +1,40 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: llm_hf_repo_id
+      prompt: Языковая модель
+      default: "{{ lookup('file', '../secure/var/llm_hf_repo_id', errors='ignore') | default('IlyaGusev/saiga_mistral_7b_gguf', true) }}"
+      private: false
+    - name: llm_hf_model_file
+      prompt: Файл языковой модели
+      default: "{{ lookup('file', '../secure/var/llm_hf_model_file', errors='ignore') | default('model-q8_0.gguf', true) }}"
+      private: false
+    - name: llm_hf_tokenizer
+      prompt: Языковая модель для блоков
+      default: "{{ lookup('file', '../secure/var/llm_hf_tokenizer', errors='ignore') | default('mistralai/Mistral-7B-Instruct-v0.2', true) }}"
+      private: false
+    - name: embedding_hf_model_name
+      prompt: Модель встраивания
+      default: "{{ lookup('file', '../secure/var/embedding_hf_model_name', errors='ignore') | default('intfloat/multilingual-e5-large', true) }}"
+      private: false
+
+  tasks:
+    - name: Создание папки кэша переменных secure/var
+      ansible.builtin.file:
+        path: '../secure/var'
+        state: directory
+    - name: Сохранение llm_hf_repo_id
+      local_action: copy content={{ llm_hf_repo_id }} dest=../secure/var/llm_hf_repo_id
+    - name: Сохранение llm_hf_model_file
+      local_action: copy content={{ llm_hf_model_file }} dest=../secure/var/llm_hf_model_file
+    - name: Сохранение llm_hf_tokenizer
+      local_action: copy content={{ llm_hf_tokenizer }} dest=../secure/var/llm_hf_tokenizer
+    - name: Сохранение embedding_hf_model_name
+      local_action: copy content={{ embedding_hf_model_name }} dest=../secure/var/embedding_hf_model_name
+    - name: Создание файла настройки gpt
+      ansible.builtin.template:
+        src: gpt-settings.yaml.j2
+        dest: '../settings-gpt.yaml'
+        mode: 0666
