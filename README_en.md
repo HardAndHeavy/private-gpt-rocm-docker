@@ -17,12 +17,12 @@
 - ROCm (see the installation in [transformers-rocm-docker](https://github.com/HardAndHeavy/transformers-rocm-docker?tab=readme-ov-file#install-rocm))
 
 ### Launch
-- `git clone https://github.com/HardAndHeavy/private-gpt-docker`
-- `cd private-gpt-docker`
+- `git clone https://github.com/HardAndHeavy/private-gpt-rocm-docker`
+- `cd private-gpt-rocm-docker`
 - `make gen`
-- `make run-cpu` to run on the CPU
-- `make run-rocm` to run on a Radeon GPU
+- `make run`
 
+At the first launch, there will be a long process of downloading the model. When this process is completed, PrivateGTP will be available at http://localhost
 After downloading, privat-gt will be available at http://localhost
 
 ### Examples of settings

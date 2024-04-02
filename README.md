@@ -17,13 +17,12 @@
 - ROCm ([установка](https://github.com/HardAndHeavy/transformers-rocm-docker?tab=readme-ov-file#install-rocm))
 
 ### Запуск
-- `git clone https://github.com/HardAndHeavy/private-gpt-docker`
-- `cd private-gpt-docker`
+- `git clone https://github.com/HardAndHeavy/private-gpt-rocm-docker`
+- `cd private-gpt-rocm-docker`
 - `make gen`
-- `make run-cpu` для запуска на CPU
-- `make run-rocm` для запуска на GPU Radeon
+- `make run`
 
-После загрузки privat-gpt будет доступен по адресу http://localhost
+При первом запуске будет происходить длительный процесс скачивания модели. Когда этот процесс завершится, PrivateGPT станет доступен по адресу http://localhost.
 
 ### Примеры настроек
 #### llm

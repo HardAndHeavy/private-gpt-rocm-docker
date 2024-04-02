@@ -1,13 +1,13 @@
 build:
-	docker build -t private-gpt-rocm:$(type)-$(ver) -f Dockerfile.$(type) .
+	docker build -t private-gpt-rocm:$(tag) -f Dockerfile .
 
 publish:
-	docker image tag private-gpt-rocm:$(type)-$(ver) hardandheavy/private-gpt-rocm:$(type)-$(ver)
-	docker push hardandheavy/private-gpt-rocm:$(type)-$(ver)
-	docker image tag private-gpt-rocm:$(type)-$(ver) hardandheavy/private-gpt-rocm:$(type)-latest
-	docker push hardandheavy/private-gpt-rocm:$(type)-latest
+	docker image tag private-gpt-rocm:$(tag) hardandheavy/private-gpt-rocm:$(tag)
+	docker push hardandheavy/private-gpt-rocm:$(tag)
+	docker image tag private-gpt-rocm:$(tag) hardandheavy/private-gpt-rocm:latest
+	docker push hardandheavy/private-gpt-rocm:latest
 
-bash-rocm:
+bash:
 	docker run -it --rm \
 		-p 80:8080 \
 		-v ./local_data/:/app/local_data \
@@ -16,16 +16,7 @@ bash-rocm:
 		-v ./settings-gpt.yaml:/app/settings-gpt.yaml \
 		--device=/dev/kfd \
 		--device=/dev/dri \
-		private-gpt-rocm:rocm-$(ver) bash
-
-bash-cpu:
-	docker run -it --rm \
-		-p 80:8080 \
-		-v ./local_data/:/app/local_data \
-		-v ./models/:/app/models \
-		-e PGPT_PROFILES=gpt \
-		-v ./settings-gpt.yaml:/app/settings-gpt.yaml \
-		private-gpt-rocm:cpu-$(ver) bash
+		private-gpt-rocm:$(tag) bash
 
 clean:
 	sudo rm -rf models/embedding
@@ -39,7 +30,7 @@ gen:
 		-i ansible/gen \
 		-vv
 
-run-rocm:
+run:
 	docker run -it --rm \
 		-p 80:8080 \
 		-v ./local_data/:/app/local_data \
@@ -48,13 +39,20 @@ run-rocm:
 		-v ./settings-gpt.yaml:/app/settings-gpt.yaml \
 		--device=/dev/kfd \
 		--device=/dev/dri \
-		hardandheavy/private-gpt-rocm:rocm-latest
+		hardandheavy/private-gpt-rocm:latest
 
-run-cpu:
+build-cpu:
+	docker build -t private-gpt-rocm:cpu-$(tag) -f Dockerfile.cpu .
+
+publish-cpu:
+	docker image tag private-gpt-rocm:cpu-$(tag) hardandheavy/private-gpt-rocm:cpu-$(tag)
+	docker push hardandheavy/private-gpt-rocm:cpu-$(tag)
+
+bash-cpu:
 	docker run -it --rm \
 		-p 80:8080 \
 		-v ./local_data/:/app/local_data \
 		-v ./models/:/app/models \
 		-e PGPT_PROFILES=gpt \
 		-v ./settings-gpt.yaml:/app/settings-gpt.yaml \
-		hardandheavy/private-gpt-rocm:cpu-latest
+		private-gpt-rocm:cpu-$(tag) bash
