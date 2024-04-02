@@ -2,8 +2,8 @@
 
 <h4 align="center">
     <p>
-        <b>English</b> |
-        <a href="https://github.com/HardAndHeavy/private-gpt-rocm-docker/blob/main/README_ru.md">Русский</a>
+        <a href="https://github.com/HardAndHeavy/private-gpt-rocm-docker">English</a> |
+        <b>Русский</b>
     </p>
 </h4>
 
