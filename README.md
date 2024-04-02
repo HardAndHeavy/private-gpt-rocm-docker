@@ -1,4 +1,4 @@
-# PrivateGPT для GPU от Radeon в Docker
+# PrivateGPT на GPU AMD Radeon в Docker
 
 <h4 align="center">
     <p>
@@ -7,7 +7,7 @@
     </p>
 </h4>
 
-[PrivateGPT](https://github.com/zylon-ai/private-gpt) в Docker [контейнере с поддержкой GPU Radeon](https://hub.docker.com/repository/docker/hardandheavy/private-gpt-rocm/general). Проверено на AMD RadeonRX 7900 XTX.
+[PrivateGPT](https://github.com/zylon-ai/private-gpt) в Docker [контейнере с поддержкой GPU Radeon](https://hub.docker.com/repository/docker/hardandheavy/private-gpt-rocm/general). Проверено на AMD Radeon RX 7900 XTX.
 
 ### Необходимое окружение
 - Ubuntu
