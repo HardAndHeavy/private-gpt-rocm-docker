@@ -10,7 +10,7 @@ RUN pip install poetry
 # https://python-poetry.org/docs/configuration/#virtualenvsin-project
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
-ENV PRIVATE_GPT_VERSION=0.4.0
+ENV PRIVATE_GPT_VERSION=0.5.0
 RUN git clone https://github.com/zylon-ai/private-gpt /app && \
     cd /app && \
     git checkout v${PRIVATE_GPT_VERSION}
