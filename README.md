@@ -22,8 +22,7 @@
 - `make gen`
 - `make run`
 
-At the first launch, there will be a long process of downloading the model. When this process is completed, PrivateGTP will be available at http://localhost
-After downloading, privat-gt will be available at http://localhost
+At the first launch, there will be a long process of downloading the model. When this process is completed, PrivateGTP will be available at http://localhost.
 
 ### Examples of settings
 #### llm
